@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+export ETCDCTL_API=3
+export ENDPOINTS="192.168.56.101:2379,192.168.56.102:2379,192.168.56.103:2379"
