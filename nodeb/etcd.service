@@ -1,0 +1,23 @@
+[Unit]
+Description=etcd
+After=network.target
+Wants=network.target
+
+[Service]
+Type=notify
+ExecStart=/usr/local/bin/etcd \
+  --name nodeb \
+  --data-dir /var/lib/etcd \
+  --listen-client-urls http://0.0.0.0:2379 \
+  --advertise-client-urls http://192.168.56.105:2379 \
+  --listen-peer-urls http://0.0.0.0:2380 \
+  --initial-advertise-peer-urls http://192.168.56.105:2380 \
+  --initial-cluster nodea=http://192.168.56.104:2380,nodeb=http://192.168.56.105:2380,nodec=http://192.168.56.106:2380 \
+  --initial-cluster-state new \
+  --initial-cluster-token etcd-lab
+Restart=always
+RestartSec=5
+LimitNOFILE=40000
+
+[Install]
+WantedBy=multi-user.target
